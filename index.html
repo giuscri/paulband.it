@@ -90,7 +90,7 @@
           var song = songs[i];
           song.addEventListener("click", function (e) {
               song.name = decodeURI(this.children[0].hash.slice(2));
-              document.querySelector("div.playerwrapper audio").src = "/static/" + song.name;
+              document.querySelector("div.playerwrapper audio").src = "static/" + song.name;
           });
       }
   };
