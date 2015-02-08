@@ -74,7 +74,7 @@
       <div class="song"><a href="#/milf.mp3">Milf</a></div>
     </div>
     <div class="playerwrapper">
-      <audio src="" autoplay>Update your browser, bro'.</audio>
+      <audio src="">Update your browser, bro'.</audio>
     </div>
     <div class="footer">
       <p>
@@ -91,7 +91,9 @@
           var song = songs[i];
           song.addEventListener("click", function (e) {
               song.name = decodeURI(this.children[0].hash.slice(2));
-              document.querySelector("div.playerwrapper audio").src = "static/" + song.name;
+              var player = document.querySelector("div.playerwrapper audio");
+              player.src = "static/" + song.name;
+              player.play();
           });
       }
   };
