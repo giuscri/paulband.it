@@ -1,0 +1,107 @@
+<!-- vim: set sw=2 ts=2: -->
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="charset" value="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+  html {
+    background: #2F4F4F;
+    color: #FFF;
+    font-family: monospace;
+  }
+  div.frontpage {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    padding: 1em;
+  }
+  div.frontpage > h1 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    text-align: center;
+  }
+  div.frontpage p.licensenote {
+    padding: 1em;
+  }
+  div.songswrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    text-align: center;
+    font-size: 3em;
+    padding: 0.314em;
+    background: #244;
+  }
+  @media screen and (max-width: 300px) {
+    div.songswrapper {
+      font-size: 1em;
+    }
+  }
+  div.song {
+    text-align: center;
+  }
+  div.song a {
+    text-decoration: none;
+    color: #FFF;
+  }
+  div.footer {
+    text-align: center;
+  }
+  div.footer span.bitcoinaddress {
+    display: block;
+  }
+  @media screen and (max-width: 300px) {
+    div.footer span.bitcoinaddress {
+      font-size: 0.5em;
+    }
+  }
+  </style>
+</head>
+<body>
+  <div class="frontpage">
+    <h1>Paul Bandit</h1>
+    <p class="licensenote">
+      All of the following songs are Creative Commons licensed.
+      Moreover, following a trend that we hope to be more standard,
+      all of the songs are hashed and embedded into the Bitcoin
+      blockchain, such to timestamping them.
+    </p>
+    <div class="songswrapper">
+      <div class="song"><a href="#/booster.mp3">Booster</a></div>
+      <div class="song"><a href="#/milf.mp3">Milf</a></div>
+    </div>
+    <div class="playerwrapper">
+      <audio src="" autoplay>Update your browser, bro'.</audio>
+    </div>
+    <div class="footer">
+      <p>
+        Donate bitcoins to
+        <span class="bitcoinaddress"><strong>1LmYKskwDZudJS79L3p92s2An5dCddANgp</strong></span>
+        and help Paul Bandit to get freaking rich.
+      </p>
+    </div>
+  </div>
+  <script type="text/javascript">
+  window.onload = function () {
+      var songs = document.querySelectorAll("div.song");
+      for (var i = 0; i < songs.length; i++) {
+          var song = songs[i];
+          song.addEventListener("click", function (e) {
+              song.name = decodeURI(this.children[0].hash.slice(2));
+              document.querySelector("div.playerwrapper audio").src = "/static/" + song.name;
+          });
+      }
+  };
+  </script>
+</body>
+<!--
+  Yes. We are hackerz. If you think I'm a shitty web developer, yes.
+  You're right. Instead of complaining, send me a pull request!
+    
+      git@github.com:giuscri/paulband.it.git
+
+  Thank you brother. :)
+-->
+</html>
