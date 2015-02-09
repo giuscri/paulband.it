@@ -128,7 +128,13 @@
           var songplaying = document.querySelector("div.song[playing='true']");
           if (songplaying) {
               var progressbar = songplaying.children[1];
-              progressbar.style.width = progress + "%";
+              if (player.ended) {
+                  progressbar.style.width = "0%";
+                  songplaying.setAttribute("playing", "false");
+              }
+              else {
+                  progressbar.style.width = progress + "%";
+              }
           }
       }, 1000);
   };
