@@ -25,7 +25,8 @@
   div.frontpage p.licensenote {
     padding: 1em;
   }
-  div.songswrapper {
+  /*div.songswrapper {*/
+  div.centralwrapper {
     margin-left: auto;
     margin-right: auto;
     width: 70%;
@@ -45,6 +46,11 @@
   div.song a {
     text-decoration: none;
     color: #FFF;
+  }
+  div.song > div.progressbar {
+    height: 0.1em;
+    width: 0%;
+    background: #FFF;
   }
   div.footer {
     text-align: center;
@@ -69,14 +75,16 @@
       blockchain, such to timestamping them and preventing the
       steal of intellectual property.
     </p>
-    <div class="songswrapper">
-      <div class="song"><a href="#/booster.mp3">Booster</a></div>
-      <div class="song"><a href="#/milf.mp3">Milf</a></div>
-      <div class="song"><a href="#/sequel.mp3">Sequel</a></div>
-      <div class="song"><a href="#/eandiamoarimini.mp3">.....e andiamo a Rimini</a></div>
-    </div>
-    <div class="playerwrapper">
-      <audio src="">Update your browser, bro'.</audio>
+    <div class="centralwrapper">
+      <div class="songswrapper">
+        <div class="song" playing="false"><a href="#/booster.mp3">Booster</a><div class="progressbar"></div></div>
+        <div class="song" playing="false"><a href="#/milf.mp3">Milf</a><div class="progressbar"></div></div>
+        <div class="song" playing="false"><a href="#/sequel.mp3">Sequel</a><div class="progressbar"></div></div>
+        <div class="song" playing="false"><a href="#/eandiamoarimini.mp3">.....e andiamo a Rimini</a><div class="progressbar"></div></div>
+      </div>
+      <div class="playerwrapper">
+        <audio src="">Update your browser, bro'.</audio>
+      </div>
     </div>
     <div class="footer">
       <p>
@@ -88,16 +96,41 @@
   </div>
   <script type="text/javascript">
   window.onload = function () {
+      "use strict";
       var songs = document.querySelectorAll("div.song");
       for (var i = 0; i < songs.length; i++) {
           var song = songs[i];
           song.addEventListener("click", function (e) {
-              song.name = decodeURI(this.children[0].hash.slice(2));
               var player = document.querySelector("div.playerwrapper audio");
-              player.src = "static/" + song.name;
-              player.play();
+              if (this.getAttribute("playing") == "true") {
+                  player.pause();
+                  player.src = "";
+                  var progressbar = this.children[1].style.width = "0%";
+                  this.setAttribute("playing", "false");
+              }
+              else {
+                  var songplaying = document.querySelector("div.song[playing='true']");
+                  if (songplaying) {
+                      songplaying.children[1].style.width = "0%";
+                      songplaying.setAttribute("playing", false);
+                  }
+                  this.name = decodeURI(this.children[0].hash.slice(2));
+                  var player = document.querySelector("div.playerwrapper audio");
+                  player.src = "static/" + this.name;
+                  player.play();
+                  this.setAttribute("playing", "true");
+              }
           });
       }
+      setInterval(function () {
+          var player = document.querySelector("div.playerwrapper audio");
+          var progress = player.currentTime / player.duration * 100;
+          var songplaying = document.querySelector("div.song[playing='true']");
+          if (songplaying) {
+              var progressbar = songplaying.children[1];
+              progressbar.style.width = progress + "%";
+          }
+      }, 1000);
   };
   </script>
 </body>
