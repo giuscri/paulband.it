@@ -46,6 +46,10 @@
   }
   div.song a {
     text-decoration: none;
+    color: #DDD;
+  }
+  div.song[playing="true"] a {
+    font-style: bold;
     color: #FFF;
   }
   div.song > div.progressbar {
@@ -60,7 +64,7 @@
   div.footer span.bitcoinaddress {
     display: block;
   }
-  @media screen and (max-width: 300px) {
+  @media screen and (max-width: 400px) {
     div.footer span.bitcoinaddress {
       font-size: 0.5em;
     }
@@ -69,7 +73,7 @@
     text-decoration: none;
     color: #FFF;
   }
-  div.footer span.humanreadablesignature {
+  div.footer div.licenseinfo {
     font-size: 0.8em;
   }
   </style>
@@ -119,11 +123,17 @@
       -->
       <div class="licenseinfo">
         <a href="http://creativecommons.org/licenses/by-nc/4.0/legalcode">
-          <img src="static/creativecommonslogo.png" alt="Read the Creative Commons license" height="24px"></img>
+          <span>Read the Creative Commons license</span>
         </a>
       </div>
-      <div class="noiseforhackers">
-        <span class="humanreadablesignature"><q>Less is more.</q></span>
+      <div class="supportinfo">
+        <p>
+          If you love the songs&nbsp;-&nbsp;course you do&nbsp;-&nbsp;consider support this amazing artist
+          both financially and by sharing his music. How? We're thinking about the easiest form of
+          payment, so keep your wallet heavy up to that moment. Meanwhile, spread the world about
+          this simple page (which we're going to use as a hub for the innumerous identities this artist has on the *net)
+          and help Paul Bandit to get a critical mass of <del>fanz</del> suppporters.
+        </p>
       </div>
     </div>
   </div>
