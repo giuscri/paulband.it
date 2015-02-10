@@ -181,7 +181,7 @@
       // of the progress bar.
       setInterval(function () {
           var player = document.querySelector("audio");
-          var progress = player.currentTime / player.duration * 100;
+          var progress = Math.floor(player.currentTime / player.duration * 100 * 100) / 100;
           var songplaying = null;
           var songsbox = document.querySelector("div.songsbox");
           [].slice.call(songsbox.children).forEach(function (sb) {
