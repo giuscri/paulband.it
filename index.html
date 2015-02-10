@@ -16,18 +16,18 @@
     width: 90%;
     padding: 1em;
   }
-  div.frontpage > h1 {
+  div.frontpage div.title {
     margin-left: auto;
     margin-right: auto;
     width: 70%;
     text-align: center;
     font-size: 1em;
+    font-style: bold;
   }
-  div.frontpage p.licensenote {
+  div.frontpage div.licensenote {
     padding: 1em;
   }
-  /*div.songswrapper {*/
-  div.centralwrapper {
+  div.frontpage div.songsbox {
     margin-left: auto;
     margin-right: auto;
     width: 70%;
@@ -37,91 +37,94 @@
     background: #244;
   }
   @media screen and (max-width: 300px) {
-    div.centralwrapper {
+    div.frontpage div.songsbox {
       font-size: 1em;
     }
   }
-  div.song {
+  div.frontpage div.songsbox div.song {
     text-align: center;
+    margin-top: 0.5em;
   }
-  div.song a {
+  div.frontpage div.songsbox div.song a {
     text-decoration: none;
     color: #DDD;
   }
-  div.song[playing="true"] a {
+  div.frontpage div.songsbox div.song[isplaying="true"] span {
     font-style: bold;
     color: #FFF;
   }
-  div.song > div.progressbar {
+  div.frontpage div.songsbox div.song div.progressbar {
     height: 0.1em;
     width: 0%;
     background: #FFF;
   }
-  div.footer {
+  div.frontpage div.footer {
     text-align: center;
     margin: 1.5em;
   }
-  div.footer span.bitcoinaddress {
-    display: block;
+  div.frontpage div.footer div.referencetolicensetext {
+    font-size: 0.8em;
   }
-  @media screen and (max-width: 400px) {
-    div.footer span.bitcoinaddress {
-      font-size: 0.5em;
-    }
-  }
-  div.footer a {
+  div.frontpage div.footer div.referencetolicensetext a {
     text-decoration: none;
     color: #FFF;
-  }
-  div.footer div.licenseinfo {
-    font-size: 0.8em;
   }
   </style>
 </head>
 <body>
   <div class="frontpage">
-    <h1>Paul Bandit</h1>
-    <p class="licensenote">
-      All of the following songs are Creative Commons licensed (see below).
-      Moreover, following a trend that we hope to become more standard,
-      all of the songs are hashed and embedded into the Bitcoin
-      blockchain, such to timestamping them and preventing the
-      steal of intellectual property.
-    </p>
-    <div class="centralwrapper">
-      <div class="songswrapper">
-        <div class="song" playing="false">
-          <a href="#/booster.mp3">Booster</a>
-          <div class="progressbar"></div>
-        </div>
-        <div class="song" playing="false">
-          <a href="#/milf.mp3">Milf</a>
-          <div class="progressbar"></div>
-        </div>
-        <div class="song" playing="false">
-          <a href="#/sequel.mp3">Sequel</a>
-          <div class="progressbar"></div>
-        </div>
-        <div class="song" playing="false">
-          <a href="#/eandiamoarimini.mp3">.....e andiamo a Rimini</a>
-          <div class="progressbar"></div>
-        </div>
+    <div class="title">
+      <span>Paul Bandit</span>
+    </div>
+    <div class="licensenote">
+      <p>
+        All of the following songs are Creative Commons licensed (see below).
+        Moreover, following a trend that we hope to become more standard,
+        all of the songs are hashed and embedded into the Bitcoin
+        blockchain, such to timestamping them and preventing the
+        steal of intellectual property.
+      </p>
+    </div>
+    <div class="songsbox">
+      <div class="song" isplaying="false">
+        <a href="#/milf.mp3">
+          <span>Milf</span>
+        </a>
+        <div class="progressbar"></div>
       </div>
-      <div class="playerwrapper">
-        <audio src="">Update your browser, bro'.</audio>
+      <div class="song" isplaying="false">
+        <a href="#/booster.mp3">
+          <span>Booster</span>
+        </a>
+        <div class="progressbar"></div>
+      </div>
+      <div class="song" isplaying="false">
+        <a href="#/sequel.mp3">
+          <span>Sequel</span>
+        </a>
+        <div class="progressbar"></div>
+      </div>
+      <div class="song" isplaying="false">
+        <a href="#/eandiamoarimini.mp3">
+          <span>.....e andiamo a Rimini</span>
+        </a>
+        <div class="progressbar"></div>
+      </div>
+      <div class="song" isplaying="false">
+        <a href="#/cazzobruno.mp3">
+          <span>cazzo Bruno</span>
+        </a>
+        <div class="progressbar"></div>
+      </div>
+      <div class="song" isplaying="false">
+        <a href="#/ilballodelmoscone.mp3">
+          <span>Il ballo del moscone</span>
+        </a>
+        <div class="progressbar"></div>
       </div>
     </div>
     <div class="footer">
-      <!--
-      <div class="bitcoininfo">
-        <p>
-          Donate bitcoins to
-          <span class="bitcoinaddress"><strong>1LmYKskwDZudJS79L3p92s2An5dCddANgp</strong></span>
-          and help Paul Bandit to get freaking rich.
-        </p>
-      </div>
-      -->
-      <div class="licenseinfo">
+      <div class="referencetolicensetext">
         <a href="http://creativecommons.org/licenses/by-nc/4.0/legalcode">
           <span>Read the Creative Commons license</span>
         </a>
@@ -137,38 +140,55 @@
       </div>
     </div>
   </div>
+  <audio src="">Update your browser, bro'.</audio>
   <script type="text/javascript">
   window.onload = function () {
       "use strict";
-      var songs = document.querySelectorAll("div.song");
-      for (var i = 0; i < songs.length; i++) {
-          var song = songs[i];
-          song.addEventListener("click", function (e) {
-              var player = document.querySelector("div.playerwrapper audio");
-              if (this.getAttribute("playing") == "true") {
+      var songsbox = document.querySelector("div.songsbox");
+      [].slice.call(songsbox.children).forEach(function (songbox) {
+          songbox.addEventListener("click", function (e) {
+              var player = document.querySelector("audio");
+              // Double clicking a song stops it permanently.
+              if (songbox.getAttribute("isplaying") == "true") {
                   player.pause();
                   player.src = "";
-                  var progressbar = this.children[1].style.width = "0%";
-                  this.setAttribute("playing", "false");
+                  var progressbar = songbox.children[1];
+                  progressbar.style.width = "0%";
+                  songbox.setAttribute("isplaying", "false");
               }
-              else {
-                  var songplaying = document.querySelector("div.song[playing='true']");
-                  if (songplaying) {
-                      songplaying.children[1].style.width = "0%";
-                      songplaying.setAttribute("playing", false);
-                  }
-                  this.name = decodeURI(this.children[0].hash.slice(2));
-                  var player = document.querySelector("div.playerwrapper audio");
-                  player.src = "static/" + this.name;
+              // Else, clicking a song starts it.
+              else if (songbox.getAttribute("isplaying") == "false") {
+                  // Search, if any, the song which is playing.
+                  [].slice.call(songsbox.children).forEach(function (sb) {
+                      if (sb.getAttribute("isplaying") == "true") {
+                          // then stop it and reset the progress bar.
+                          var progressbar = sb.children[1];
+                          progressbar.style.width = "0%";
+                          sb.setAttribute("isplaying", "false");
+                          player.pause();
+                      }
+                  });
+                  // Hence!, fill the player with the bran new song.
+                  var songname = songbox.children[0].hash.slice(2);
+                  player.src = "static/" + songname;
                   player.play();
-                  this.setAttribute("playing", "true");
+                  songbox.setAttribute("isplaying", "true");
               }
           });
-      }
+      });
+      // Every second, check for the progress of the song
+      // which is playing and update the relative graphic
+      // of the progress bar.
       setInterval(function () {
-          var player = document.querySelector("div.playerwrapper audio");
+          var player = document.querySelector("audio");
           var progress = player.currentTime / player.duration * 100;
-          var songplaying = document.querySelector("div.song[playing='true']");
+          var songplaying = null;
+          var songsbox = document.querySelector("div.songsbox");
+          [].slice.call(songsbox.children).forEach(function (sb) {
+              if (sb.getAttribute("isplaying") == "true") {
+                  songplaying = sb;
+              }
+          });
           if (songplaying) {
               var progressbar = songplaying.children[1];
               if (player.ended) {
@@ -190,5 +210,10 @@
       git@github.com:giuscri/paulband.it.git
 
   Thank you brother. :)
+
+  Soundtrack used to hack on this simple project:
+  
+    + http://youtu.be/Qt97R7rISus
+
 -->
 </html>
