@@ -4,6 +4,7 @@
 <head>
   <meta http-equiv="charset" value="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="bower_components/normalize.css/normalize.css" rel="stylesheet" type="text/css" />
   <style>
   html {
     background: #2F4F4F;
@@ -13,6 +14,7 @@
   div.frontpage {
     margin-left: auto;
     margin-right: auto;
+    margin-top: 1em;
     width: 90%;
     padding: 1em;
   }
@@ -21,8 +23,8 @@
     margin-right: auto;
     width: 70%;
     text-align: center;
-    font-size: 1em;
-    font-style: bold;
+    font-size: 1.2em;
+    font-weight: bold;
   }
   div.frontpage div.licensenote {
     padding: 1em;
@@ -42,19 +44,21 @@
     }
   }
   div.frontpage div.songsbox div.song {
+    margin: 0.314em;
     text-align: center;
-    margin-top: 0.5em;
   }
   div.frontpage div.songsbox div.song a {
     text-decoration: none;
     color: #DDD;
+  }
+  div.frontpage div.songsbox div.song[isplaying="true"] {
   }
   div.frontpage div.songsbox div.song[isplaying="true"] span {
     font-style: bold;
     color: #FFF;
   }
   div.frontpage div.songsbox div.song div.progressbar {
-    height: 0.1em;
+    height: 0.2em;
     width: 0%;
     background: #FFF;
   }
@@ -69,9 +73,32 @@
     text-decoration: none;
     color: #FFF;
   }
+  div.frontpage div.footer div.credits {
+    font-size: 0.7em;
+  }
+  div.errorlog {
+    padding: 2.5em;
+    background: #244;
+  }
+  div.errorlog span.warningcharacter {
+    font-weight: bold;
+    font-size: 2.5em;
+  }
   </style>
 </head>
 <body>
+  <audio src="">
+    <div class="errorlog">
+      <p>
+        <span class="warningcharacter">!</span>, seems like your machine 
+        is not hipster enough to support the player this page would like to use.
+      </p>
+      <p>
+        Meh. Go home and use your brand new computer or trust us: this music is awesome!,
+        you don't even need to listen, bro'.
+      </p>
+    </div>
+  </audio>
   <div class="frontpage">
     <div class="title">
       <span>Paul Bandit</span>
@@ -138,18 +165,22 @@
           and help Paul Bandit to get a critical mass of <del>fanz</del> suppporters.
         </p>
       </div>
+      <div class="credits">
+        <span><q>Less is more.</q>, 2015</span>
+      </div>
     </div>
   </div>
-  <audio src="">Update your browser, bro'.</audio>
   <script type="text/javascript">
   window.onload = function () {
       "use strict";
+      // Check if the browser is hipster enough to support the audio tag.
+      var player = document.querySelector("audio");
       var songsbox = document.querySelector("div.songsbox");
       [].slice.call(songsbox.children).forEach(function (songbox) {
           songbox.addEventListener("click", function (e) {
               var player = document.querySelector("audio");
               // Double clicking a song stops it permanently.
-              if (songbox.getAttribute("isplaying") == "true") {
+              if (songbox.getAttribute("isplaying") === "true") {
                   player.pause();
                   player.src = "";
                   var progressbar = songbox.children[1];
@@ -157,10 +188,10 @@
                   songbox.setAttribute("isplaying", "false");
               }
               // Else, clicking a song starts it.
-              else if (songbox.getAttribute("isplaying") == "false") {
+              else if (songbox.getAttribute("isplaying") === "false") {
                   // Search, if any, the song which is playing.
                   [].slice.call(songsbox.children).forEach(function (sb) {
-                      if (sb.getAttribute("isplaying") == "true") {
+                      if (sb.getAttribute("isplaying") === "true") {
                           // then stop it and reset the progress bar.
                           var progressbar = sb.children[1];
                           progressbar.style.width = "0%";
@@ -185,7 +216,7 @@
           var songplaying = null;
           var songsbox = document.querySelector("div.songsbox");
           [].slice.call(songsbox.children).forEach(function (sb) {
-              if (sb.getAttribute("isplaying") == "true") {
+              if (sb.getAttribute("isplaying") === "true") {
                   songplaying = sb;
               }
           });
@@ -193,13 +224,13 @@
               var progressbar = songplaying.children[1];
               if (player.ended) {
                   progressbar.style.width = "0%";
-                  songplaying.setAttribute("playing", "false");
+                  songplaying.setAttribute("isplaying", "false");
               }
               else {
                   progressbar.style.width = progress + "%";
               }
           }
-      }, 1000);
+      }, 500);
   };
   </script>
 </body>
