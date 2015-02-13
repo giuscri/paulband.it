@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Paul Bandit</title>
   <link href="bower_components/normalize.css/normalize.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="bower_components/octicons/octicons/octicons.css">
   <style>
   html {
     background: #2F4F4F;
@@ -33,6 +34,10 @@
     text-align: center;
     font-size: 1.2em;
     font-weight: bold;
+  }
+  div.frontpage a {
+    text-decoration: none;
+    color: #FFF;
   }
   div.frontpage div.licensenote {
     padding: 1em;
@@ -83,6 +88,19 @@
   }
   div.frontpage div.footer div.credits {
     font-size: 0.7em;
+  }
+  div.frontpage div.footer div.download {
+    margin: 1.5em;
+  }
+  div.frontpage div.footer div.download a {
+    color: #FFF;
+  }
+  div.frontpage div.footer div.download div.description {
+    font-size: 0.9em;
+    padding: 1em;
+  }
+  div.frontpage div.footer div.contacts {
+    margin: 0.5em;
   }
   </style>
 </head>
@@ -168,6 +186,21 @@
       <div class="credits">
         <span><q>Less is more.</q>, 2015</span>
       </div>
+      <div class="download">
+        <div class="icon">
+        <a href="static/all.zip" height="32px">
+          <span class="mega-octicon octicon-move-down"></span>
+        </a>
+        </div>
+        <div class="description">
+          <span>Download for free<span>
+        </div>
+        <div class="contacts">
+          <a href="http://www.facebook.com/Bandit.it"><span><img src="static/facebooklogo.png" height="48px"/></span></a>
+          <a href="http://www.youtube.com/user/pankautore"><span><img src="static/youtubelogo.png" height="48px"/></span></a>
+          <a href="http://twitter.com/PaoloBandit"><span><img src="static/twitterlogo.png" height="48px"/></span></a>
+          <a href="http://soundcloud.com/paolo-bandirali/"><span><img src="static/soundcloudlogo.png" height="48px"/></span></a>
+        </div>
     </div>
   </div>
   <script type="text/javascript">
