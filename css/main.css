@@ -1,0 +1,82 @@
+html {
+  background: #2F4F4F;
+  color: #FFF;
+  font-family: monospace;
+}
+div.errorlog {
+  padding: 2.5em;
+  background: #244;
+}
+div.errorlog span.warningcharacter {
+  font-weight: bold;
+  font-size: 2.5em;
+}
+div.frontpage {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  width: 90%;
+  padding: 1em;
+}
+div.frontpage div.title {
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+div.frontpage a {
+  text-decoration: none;
+  color: #FFF;
+}
+div.frontpage div.licensenote {
+  padding: 1em;
+}
+div.frontpage div.songsbox {
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  text-align: center;
+  font-size: 3em;
+  padding: 0.314em;
+  background: #244;
+}
+@media screen and (max-width: 300px) {
+  div.frontpage div.songsbox {
+    font-size: 1em;
+  }
+}
+div.frontpage div.songsbox div.song {
+  margin: 0.314em;
+  text-align: center;
+}
+div.frontpage div.songsbox div.song a {
+  text-decoration: none;
+  color: #DDD;
+}
+div.frontpage div.songsbox div.song[isplaying="true"] {
+}
+div.frontpage div.songsbox div.song[isplaying="true"] span {
+  font-style: bold;
+  color: #FFF;
+}
+div.frontpage div.songsbox div.song div.progressbar {
+  height: 0.2em;
+  width: 0%;
+  background: #FFF;
+}
+div.frontpage div.footer {
+  text-align: center;
+  margin: 1.5em;
+}
+div.frontpage div.footer div.referencetolicensetext {
+  font-size: 0.8em;
+}
+div.frontpage div.footer div.referencetolicensetext a {
+  text-decoration: none;
+  color: #FFF;
+}
+div.frontpage div.footer div.credits {
+  font-size: 0.8em;
+}
