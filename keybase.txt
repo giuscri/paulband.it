@@ -1,0 +1,66 @@
+==================================================================
+https://keybase.io/giuscri
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://paulband.it
+  * I am giuscri (https://keybase.io/giuscri) on keybase.
+  * I have a public key with fingerprint F9BE 9B27 0460 17C0 E5A3  77C5 5E87 C792 5A8B 6525
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "f9be9b27046017c0e5a377c55e87c7925a8b6525",
+            "host": "keybase.io",
+            "key_id": "5e87c7925a8b6525",
+            "kid": "01011ede1d91728d6b8c19535a35795d246c7ff855dbeb3cc73c18820e8768ce04aa0a",
+            "uid": "142b898f3b53dfab184c374556eaa919",
+            "username": "giuscri"
+        },
+        "service": {
+            "hostname": "paulband.it",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1428432126,
+    "expire_in": 157680000,
+    "prev": "38fa5bd358ac394d111ecf298cfaa3ff56419036285716dce152bfc6f32a113f",
+    "seqno": 3,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+owFtkltIFUEYx4+XrE7ZXSTyadGCMtvZ2dmdPVFS4EtJN0roajOzM8fNOns8Z88x
+U8MuEilqRS8RdMFuiChRBEUgFWURVGI9HIKMLhQVKRWRkNms2FvzMsz3/f+/78Ic
+y84IBNN2HOk9saWZF6Q9vlNMA5vyCybXKtS1a5RQrVLJxy7hRMI8Fo05EU8JKcKi
+3KKaqeqGCkymckSgaTKEODaZaWmIYGogDSmFSoUb9x0SQ0mcFzmujMlHuWPL6H/0
+lWMJFagAcJsD2wKmhm2DYgYsBGUdZFrI1nSDmUJghGzKKWTMhAxgrKkSaGDGVZ0Q
+lUhcYgwHdI1iCwtIEbQFoQDrDJo6QgYnxAKWL4zzWITs4VIddhJxFnOU+kJFBpMO
+4/4G/EHGBVGS2E1JxC5yPOmMxlzPZe5umajwvGjI93k1UV9YzWn5OKKcOhFbLlEa
+kjwWd9yIEgJSyTzHZ8oOsQ41oBmFCt8bdWK83PEVSI6jyuOX4UmJhFgQRG2IMGHQ
+0m0g98SEZmEmCIFCIEMHlgoNDSMTGDbjAGlUMENAjQAAheIPVRVxlRCUbZKwRMad
+cIR4iRhX6oNH0/IyA2nBQNaEdP8fBIKTZ/z7HXnHJ46uZU36UO/M0zlHH2S39X2/
+ta2sr2thu/HlwdmrU5rSMxqn1u3rPFjSk+qvLHnSfXlnW3Lum870PweGz7mD90KH
+4r+CO3aueJ019HTkSO6qzdcXbyx+31mKb2aXbPt4bODG4er5k7TnLU0PW6rEXa20
+rg1mZeSnWq9cKlpIlw6samhpTM1Z0P+zYNZ02D2Sqt/fZYYbX7aW3SvOFMPxq7lT
+hjI2vH2X2SFCk87rF5vX/O4ZmF0BZ3xqP/00ffTFkpPzej4UPtu15/bZR71vk6uL
+lnf1N+SM3J+29+edxEpjXZ0381vNtY+DW9uXb/+65PNgWUf1hRWtr5oXLTtz68f3
+9X2pU6cu3q79Cw==
+=Yf/P
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/giuscri
+
+==================================================================
