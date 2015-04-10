@@ -36,16 +36,17 @@
       </p>
     </div>
     <div class="songsbox">
-    <script class="songsbox-template" type="text/x-handlebars-template">
-      {{#songs}}
-        <div class="song" isplaying="false">
-          <a href="#/{{filename}}">
-            {{name}}
-          </a>
-          <div class="progressbar"></div>
-        </div>
-      {{/songs}}
-    </script>
+      <span>...</span>
+      <script class="songsbox-template" type="text/x-handlebars-template">
+        {{#songs}}
+          <div class="song" isplaying="false">
+            <a href="#/{{filename}}">
+              {{name}}
+            </a>
+            <div class="progressbar"></div>
+          </div>
+        {{/songs}}
+      </script>
     </div>
     <div class="footer">
       <div class="referencetolicensetext">
