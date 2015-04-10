@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Paul Bandit</title>
   <link href="bower_components/normalize.css/normalize.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="bower_components/octicons/octicons/octicons.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="bower_components/octicons/octicons/octicons.css" type="text/css" />
+  <link rel="stylesheet" href="css/main.css" type="text/css" />
+  <script src="bower_components/handlebars/handlebars.js"></script>
 </head>
 <body>
   <audio>
@@ -35,42 +36,16 @@
       </p>
     </div>
     <div class="songsbox">
-      <div class="song" isplaying="false">
-        <a href="#/milf.mp3">
-          <span>Milf</span>
-        </a>
-        <div class="progressbar"></div>
-      </div>
-      <div class="song" isplaying="false">
-        <a href="#/booster.mp3">
-          <span>Booster</span>
-        </a>
-        <div class="progressbar"></div>
-      </div>
-      <div class="song" isplaying="false">
-        <a href="#/sequel.mp3">
-          <span>Sequel</span>
-        </a>
-        <div class="progressbar"></div>
-      </div>
-      <div class="song" isplaying="false">
-        <a href="#/eandiamoarimini.mp3">
-          <span>.....e andiamo a Rimini</span>
-        </a>
-        <div class="progressbar"></div>
-      </div>
-      <div class="song" isplaying="false">
-        <a href="#/cazzobruno.mp3">
-          <span>cazzo Bruno</span>
-        </a>
-        <div class="progressbar"></div>
-      </div>
-      <div class="song" isplaying="false">
-        <a href="#/ilballodelmoscone.mp3">
-          <span>Il ballo del moscone</span>
-        </a>
-        <div class="progressbar"></div>
-      </div>
+    <script class="songsbox-template" type="text/x-handlebars-template">
+      {{#songs}}
+        <div class="song" isplaying="false">
+          <a href="#/{{filename}}">
+            {{name}}
+          </a>
+          <div class="progressbar"></div>
+        </div>
+      {{/songs}}
+    </script>
     </div>
     <div class="footer">
       <div class="referencetolicensetext">
@@ -92,8 +67,10 @@
       </div>
   </div>
   <script type="text/javascript">
-  window.onload = function () {
-      "use strict";
+  "use strict";
+  var paulband = {};
+  paulband.it = {};
+  paulband.it.start = function () {
       var player = document.querySelector("audio");
       var songsbox = document.querySelector("div.songsbox");
       [].slice.call(songsbox.children).forEach(function (songbox) {
@@ -151,6 +128,18 @@
               }
           }
       }, 500);
+  };
+  window.onload = function () {
+      var src = document.querySelector("script.songsbox-template").innerHTML;
+      var res = Handlebars.compile(src);
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+          var songs = JSON.parse(this.responseText);
+          document.querySelector("div.songsbox").innerHTML = res(songs);
+          paulband.it.start();
+      };
+      xhr.open("GET", "songs.json", true);
+      xhr.send();
   };
   </script>
   <script>
