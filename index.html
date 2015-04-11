@@ -65,7 +65,7 @@
   <script type="text/javascript">
   "use strict";
   var app = angular.module("app", []);
-  app.controller('mainCtrl', ['$scope', '$http', '$interval', function ($scope, $http) {
+  app.controller('mainCtrl', ['$scope', '$http', function ($scope, $http) {
       var emptySong = {name: "...", filename: ""};
       $scope.songs = [emptySong];
       $http({
