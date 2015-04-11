@@ -37,10 +37,10 @@
     </div>
     <div class="songsbox">
       <div class="song" ng-repeat="song in songs" isplaying="{{isPlaying(song.name)}}" ng-click="shakeSong(song.name)">
-        <a href="#/">
+        <a href="">
           <span>{{song.name}}</span>
         </a>
-        <div class="progressbar" width="0%"></div>
+        <div class="progressbar" style="width: {{song.progress}}%"></div>
       </div>
     </div>
     <div class="footer">
@@ -65,7 +65,26 @@
   <script type="text/javascript">
   "use strict";
   var app = angular.module("app", []);
-  app.controller("mainCtrl", ["$scope", "$http", function ($scope, $http) {
+  app.factory("audio", function ($document) {
+      var audio = $document[0].createElement("audio");
+      return {
+          audio: audio,
+          play: function (path) {
+              audio.src = path;
+              audio.play();
+          },
+          pause: function () {
+              audio.src = "";
+              audio.pause();
+          },
+          timer: function (cb) {
+              audio.ontimeupdate = function () {
+                  cb(audio.currentTime, audio.duration);
+              };
+          }
+      };
+  });
+  app.controller("mainCtrl", function ($scope, $http, audio) {
       var emptySong = {name: "...", filename: ""};
       $scope.songs = [emptySong];
       $http({
@@ -74,15 +93,21 @@
       }).success(function (data, status, headers, config) {
             $scope.songs = data.songs;
       });
-      $scope.playingSong = {name: "", path: ""};
+      $scope.songs.forEach(function (song) {
+          song.progress = 0.;
+      });
+      $scope.playingSong = {name: "", path: "", progress: 0.};
       $scope.shakeSong = function (songname) {
+          $scope.playingSong.progress = 0;
           if (songname === $scope.playingSong.name) {
               $scope.playingSong = emptySong;
+              audio.pause();
           }
           else {
               $scope.songs.forEach(function (song) {
                   if (song.name === songname) {
                       $scope.playingSong = song;
+                      audio.play(song.path);
                   }
               });
           }
@@ -90,7 +115,13 @@
       $scope.isPlaying = function (name) {
           return $scope.playingSong.name === name;
       };
-  }]);
+      audio.timer(function (currentTime, duration) {
+          var progress = Math.floor(currentTime / duration * 100 * 100) / 100;
+          console.log($scope.playingSong.progress);
+          isNaN(progress) ? $scope.playingSong.progress = 0 : $scope.playingSong.progress = progress;
+          $scope.$apply();
+      });
+  });
   </script>
   <script>
   // Google Analytics stuff... Forgive me!!
