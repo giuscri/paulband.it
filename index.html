@@ -9,8 +9,8 @@
   <link rel="stylesheet" type="text/css" href="css/main.css" />
   <script type="text/javascript" src="bower_components/angular/angular.js"></script>
 </head>
-<body ng-app="app">
-  <audio>
+<body ng-app="app" ng-controller="mainCtrl" ng-cloak>
+  <audio src="{{playingSong.path}}">
     <div class="errorlog">
       <p>
         <span class="warningcharacter">!</span>, seems like your machine
@@ -35,12 +35,12 @@
         steal of intellectual property.
       </p>
     </div>
-    <div class="songsbox" ng-controller="songsboxCtrl">
-      <div class="song" isplaying="false" ng-repeat="song in songs" ng-click="shakeSong($event)">
-        <a href="#/{{song.filename}}">
-          {{song.name}}
+    <div class="songsbox">
+      <div class="song" ng-repeat="song in songs" isplaying="{{isPlaying(song.name)}}" ng-click="shakeSong(song.name)">
+        <a href="#/">
+          <span>{{song.name}}</span>
         </a>
-        <div class="progressbar"></div>
+        <div class="progressbar" width="0%"></div>
       </div>
     </div>
     <div class="footer">
@@ -65,44 +65,30 @@
   <script type="text/javascript">
   "use strict";
   var app = angular.module("app", []);
-  app.controller('songsboxCtrl', ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
-      $scope.songs = [{name: "...", filename: ""}];
+  app.controller('mainCtrl', ['$scope', '$http', '$interval', function ($scope, $http) {
+      var emptySong = {name: "...", filename: ""};
+      $scope.songs = [emptySong];
       $http({
           url: "/static/songs.json",
           method: "GET"
       }).success(function (data, status, headers, config) {
             $scope.songs = data.songs;
-            $scope.songs.forEach(function (song) {
-                song.isPlaying = false;
-            });
       });
-      $scope.player = document.querySelector("audio");
-      $scope.startPlayer = function (filename) {
-          $scope.player.src = ["/static", filename].join("/");
-          $scope.player.play();
-          $scope.songs.forEach(function (song) {
-              if (filename === song.filename) {
-                  song.isPlaying = true;
-              }
-          });
+      $scope.playingSong = {name: "", path: ""};
+      $scope.shakeSong = function (songname) {
+          if (songname === $scope.playingSong.name) {
+              $scope.playingSong = emptySong;
+          }
+          else {
+              $scope.songs.forEach(function (song) {
+                  if (song.name === songname) {
+                      $scope.playingSong = song;
+                  }
+              });
+          }
       };
-      $scope.stopPlayer = function () {
-          $scope.player.src = "";
-          $scope.player.pause();
-          var filename = $scope.player.src.split('/')[2];
-          $scope.songs.forEach(function (song) {
-              if (song.filename === filename) {
-                  song.isPlaying = false;
-              }
-          });
-      };
-      $scope.shakeSong = function ($event) {
-          var filename = $event.srcElement.hash.split("#")[1].slice(1);
-          $scope.songs.forEach(function (song) {
-              if (song.filename === filename) {
-                  song.isPlaying ? $scope.stopPlayer() : $scope.startPlayer(song.filename);
-              }
-          });
+      $scope.isPlaying = function (name) {
+          return $scope.playingSong.name === name;
       };
   }]);
   </script>

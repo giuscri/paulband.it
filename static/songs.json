@@ -2,27 +2,27 @@
     "songs": [
         {
             "name": "Milf",
-            "filename": "milf.mp3"
+            "path": "/static/milf.mp3"
         },
         {
             "name": "Booster",
-            "filename": "booster.mp3"
+            "path": "/static/booster.mp3"
         },
         {
             "name": "Sequel",
-            "filename": "sequel.mp3"
+            "path": "/static/sequel.mp3"
         },
         {
             "name": ".....e andiamo a Rimini",
-            "filename": "eandiamoarimini.mp3"
+            "path": "/static/eandiamoarimini.mp3"
         },
         {
             "name": "cazzo Bruno",
-            "filename": "cazzobruno.mp3"
+            "path": "/static/cazzobruno.mp3"
         },
         {
             "name": "Il ballo del moscone",
-            "filename": "ilballodelmoscone.mp3"
+            "path": "/static/ilballodelmoscone.mp3"
         }
     ]
 }
