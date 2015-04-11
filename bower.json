@@ -3,6 +3,7 @@
   "dependencies": {
     "normalize.css": "~3.0.2",
     "octicons": "*",
-    "handlebars": "~3.0.0"
+    "handlebars": "~3.0.0",
+    "angular": "~1.3.15"
   }
 }

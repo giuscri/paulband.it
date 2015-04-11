@@ -4,12 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Paul Bandit</title>
-  <link href="bower_components/normalize.css/normalize.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="bower_components/octicons/octicons/octicons.css" type="text/css" />
-  <link rel="stylesheet" href="css/main.css" type="text/css" />
-  <script src="bower_components/handlebars/handlebars.js"></script>
+  <link rel="stylesheet" type="text/css" href="bower_components/normalize.css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/octicons/octicons/octicons.css" />
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+  <script type="text/javascript" src="bower_components/handlebars/handlebars.js"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.js"></script>
 </head>
-<body>
+<body ng-app="app">
   <audio>
     <div class="errorlog">
       <p>
@@ -35,20 +36,13 @@
         steal of intellectual property.
       </p>
     </div>
-    <div class="songsbox">
-      <div class="song">
-        ...
+    <div class="songsbox" ng-controller="songsboxCtrl">
+      <div class="song" isplaying="false" ng-repeat="song in songs" ng-click="shakeSong($event)">
+        <a href="#/{{song.filename}}">
+          {{song.name}}
+        </a>
+        <div class="progressbar"></div>
       </div>
-      <script class="songsbox-template" type="text/x-handlebars-template">
-        {{#songs}}
-          <div class="song" isplaying="false">
-            <a href="#/{{filename}}">
-              {{name}}
-            </a>
-            <div class="progressbar"></div>
-          </div>
-        {{/songs}}
-      </script>
     </div>
     <div class="footer">
       <div class="referencetolicensetext">
@@ -71,79 +65,50 @@
   </div>
   <script type="text/javascript">
   "use strict";
-  var paulband = {};
-  paulband.it = {};
-  paulband.it.start = function () {
-      var player = document.querySelector("audio");
-      var songsbox = document.querySelector("div.songsbox");
-      [].slice.call(songsbox.children).forEach(function (songbox) {
-          songbox.addEventListener("click", function (e) {
-              var player = document.querySelector("audio");
-              // Double clicking a song stops it permanently.
-              if (songbox.getAttribute("isplaying") === "true") {
-                  player.pause();
-                  player.src = "";
-                  var progressbar = songbox.children[1];
-                  progressbar.style.width = "0%";
-                  songbox.setAttribute("isplaying", "false");
-              }
-              // Else, clicking a song starts it.
-              else if (songbox.getAttribute("isplaying") === "false") {
-                  // Search, if any, the song which is playing.
-                  [].slice.call(songsbox.children).forEach(function (sb) {
-                      if (sb.getAttribute("isplaying") === "true") {
-                          // then stop it and reset the progress bar.
-                          var progressbar = sb.children[1];
-                          progressbar.style.width = "0%";
-                          sb.setAttribute("isplaying", "false");
-                          player.pause();
-                      }
-                  });
-                  // Hence!, fill the player with the brand new song.
-                  var songname = songbox.children[0].hash.slice(2);
-                  player.src = "static/" + songname;
-                  player.play();
-                  songbox.setAttribute("isplaying", "true");
-              }
-          });
+  var app = angular.module("app", []);
+  app.controller('songsboxCtrl', ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
+      $scope.songs = [{name: "...", filename: ""}];
+      $http({
+          url: "/static/songs.json",
+          method: "GET"
+      }).success(function (data, status, headers, config) {
+            $scope.songs = data.songs;
+            console.log($scope.songs);
+            $scope.songs.forEach(function (song) {
+                song.isPlaying = false;
+            });
       });
-      // Every second, check for the progress of the song
-      // which is playing and update the relative graphic
-      // of the progress bar.
-      setInterval(function () {
-          var player = document.querySelector("audio");
-          var progress = Math.floor(player.currentTime / player.duration * 100 * 100) / 100;
-          var songplaying = null;
-          var songsbox = document.querySelector("div.songsbox");
-          [].slice.call(songsbox.children).forEach(function (sb) {
-              if (sb.getAttribute("isplaying") === "true") {
-                  songplaying = sb;
+      $scope.player = document.querySelector("audio");
+      $scope.startPlayer = function (filename) {
+          console.log("Starting player ...");
+          $scope.player.src = ["/static", filename].join("/");
+          $scope.player.play();
+          $scope.songs.forEach(function (song) {
+              if (filename === song.filename) {
+                  song.isPlaying = true;
               }
           });
-          if (songplaying) {
-              var progressbar = songplaying.children[1];
-              if (player.ended) {
-                  progressbar.style.width = "0%";
-                  songplaying.setAttribute("isplaying", "false");
-              }
-              else {
-                  progressbar.style.width = progress + "%";
-              }
-          }
-      }, 500);
-  };
-  window.onload = function () {
-      var src = document.querySelector("script.songsbox-template").innerHTML;
-      var res = Handlebars.compile(src);
-      var xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-          var songs = JSON.parse(this.responseText);
-          document.querySelector("div.songsbox").innerHTML = res(songs);
-          paulband.it.start();
       };
-      xhr.open("GET", "songs.json", true);
-      xhr.send();
-  };
+      $scope.stopPlayer = function () {
+          $scope.player.src = "";
+          $scope.player.pause();
+          var filename = $scope.player.src.split('/')[2];
+          $scope.songs.forEach(function (song) {
+              if (song.filename === filename) {
+                  song.isPlaying = false;
+              }
+          });
+      };
+      $scope.shakeSong = function ($event) {
+          var filename = $event.srcElement.hash.split("#")[1].slice(1);
+          console.log("Shaking", filename);
+          $scope.songs.forEach(function (song) {
+              if (song.filename === filename) {
+                  song.isPlaying ? $scope.stopPlayer() : $scope.startPlayer(song.filename);
+              }
+          });
+      };
+  }]);
   </script>
   <script>
   // Google Analytics stuff... Forgive me!!
