@@ -42,7 +42,7 @@ div.frontpage div.songsbox {
   padding: 0.314em;
   background: #244;
 }
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 320px) {
   div.frontpage div.songsbox {
     font-size: 1em;
   }
