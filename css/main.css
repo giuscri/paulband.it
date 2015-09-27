@@ -1,7 +1,14 @@
+@font-face {
+  font-family: 'DejaVu Sans Mono';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../woff/DejaVuSansMono.woff') format('woff');
+}
 html {
   background: #2F4F4F;
   color: #FFF;
-  font-family: monospace;
+  /*font-family: monospace;*/
+  font-family: 'DejaVu Sans Mono';
 }
 div.errorlog {
   padding: 2.5em;
